@@ -1,0 +1,412 @@
+ /* Noto Sans JP (japanese) フォントのインポート */
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+body,ul {
+    /* 余白の初期値解除 */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* 総称フォントも第二優先で指定 */
+    font-family: "Noto Sans JP", sans-serif;
+    letter-spacing: 0.05em;
+    /*画面外の要素を非表示にする（スライドメニューが右画面外にあるとスクロールできてしまうのを防止）*/
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1024px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* position: fixed;を指定した要素の高さはなくなる→下の要素が上に詰まって配置 */
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-left h1 {
+    font-size: 26px;
+    margin: 0 0 0 20px;
+    line-height: 80px;
+}
+
+.logo-orange {
+    color: #fc5914;
+}
+
+.logo-white {
+    color: white;
+}
+
+.header-right li {
+    float: left;
+    list-style: none;
+}
+
+.header-right a {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 80px;
+    padding: 0 20px;
+    transition: all 0.5s;
+}
+
+.header-right a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.hamburger {
+    display: none;
+}
+
+.slide-menu {
+    display: none;
+}
+
+.main-visual {
+    background-image: url(images/top_trim.jpg);
+    background-size: cover;
+    height: 40vh;
+    width: 100%;
+}
+
+.self-introduction {
+    padding-top: 100px;
+}
+
+h2 {
+    color: #fc5914;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.flex-photo-sentence {
+    display: flex;
+    width: 80%;
+    margin: 80px auto 30px auto;
+}
+
+.face-photo {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 50%;
+    background-image: url(images/face_photo_reduction.jpeg);
+    background-position: 58% 21%;
+}
+
+.self-introduction-sentence-part {
+    width: 70%;
+}
+
+.self-introduction-sentence {
+    width: 90%;
+    font-size: 16px;
+    margin: 0 auto; 
+}
+
+.name-bold {
+    font-weight: bold;
+}
+
+.flex-skills-certifications {
+    display: flex;
+}
+
+.skills-certifications-flex-part {
+    width: 50%;
+}
+
+.skills-certifications-part {
+    height: 245px;
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #7d7d7d;
+    box-shadow: 2px 2px #7d7d7d;
+    border-radius: 10px;
+}
+
+.skills-certifications-headline {
+    border-bottom: 1px solid black;
+    margin: 10px 10px 0 10px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.list {
+    padding: 25px 0 25px 40px;
+}
+
+.list li {
+    font-size: 16px;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+.certifications {
+    width: 48%;
+    margin-left: auto;
+    position: relative;
+}
+
+.works {
+    padding-top: 140px;
+    margin-bottom: 140px;
+}
+
+.works-headline {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.work {
+    margin-bottom: 80px;
+}
+
+.work-headline {
+    font-size: 24px;
+    border-bottom: 2px solid #B7B7B7;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.work-flex {
+    display: flex;
+}
+
+.work-img-part, .work-explanation-part {
+    width: 50%;
+}
+
+.work-img {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.work-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 2px solid #B7B7B7;
+}
+
+.work-img a:hover{ 
+	opacity:0.6;
+	transition:0.3s;
+}
+
+dt {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 30px;
+}
+
+.link-underline {
+    text-decoration: underline;
+}
+
+footer {
+    height: 120px;
+    width: 100%;
+    background-color: #eaa06b;
+}
+
+.footer-logo {
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+    padding-top: 20px;
+}
+
+
+@media all and (max-width: 768px) {
+    .header-left h1 {
+        font-size: 20px;
+        line-height: 48px;
+        margin: 0 0 0 10px;
+    }
+    
+    .header-right {
+        display: none;
+    }
+
+    .hamburger {
+        display: block;
+        width: 31px;
+        height: 48px;
+        position: relative;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .hamburger-line {
+        position: absolute;
+        width: 100%;
+        height: 3px;
+        background-color: white;
+    }
+
+    .first-line {
+        top: 20%;
+    }
+
+    .second-line {
+        top: 40%;
+    }
+
+    .third-line {
+        top: 60%;
+    }
+
+    .menu {
+        color: white;
+        position: absolute;
+        width: 100%;
+        top: 65%;
+        font-size: 10px;
+    }
+
+    .slide-menu {
+        display: block;
+        list-style-type: none;
+        background-color: rgba(0, 0, 0, 0.8);
+        position: fixed;
+        top: 48px;
+        width: 100%;
+        left: 0;
+        transform: translateX(100%); /*スライドメニューを画面の右側に見えないように移動*/
+    }
+    
+    .slide-menu li{
+        text-align: center;
+    }
+
+    .slide-menu a {
+        display: inline-block;
+        width: 100%;
+        line-height: 40px;
+        transition: all 0.5s;
+        color: white;
+    }
+
+    .slide-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /*ハンバーガーメニューが押された際のバツ印を作る挙動*/
+    .hamburger.active .first-line {
+        top: 50%;
+        transform: rotate(45deg);
+    }
+
+    .hamburger.active .second-line {
+        opacity: 0;
+    }
+
+    .hamburger.active .third-line {
+        top: 50%;
+        transform: rotate(-45deg);
+    }
+
+    .hamburger.active .menu {
+        opacity: 0;
+    }
+
+    /*ハンバーガーメニューが押された際のスライドメニューを表示する挙動*/
+    .slide-menu.active {
+        transform: translateX(0); 
+    }
+
+    /*ハンバーガーメニューが押された際にゆっくり変化させる*/
+    .hamburger span,.slide-menu{
+        transition: 0.5s;
+    }
+
+    .main-visual {
+        height: 32vh;
+    }
+
+    h2 {
+        font-size: 24px;
+        line-height: 29px;
+    }
+
+    .flex-photo-sentence {
+        width: 100%;
+        display: block;
+    }
+
+    .self-introduction-sentence-part {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .self-introduction-sentence {
+        font-size: 15px;
+    }
+
+    .flex-skills-certifications {
+        display: block;
+    }
+
+    .skills-certifications-flex-part {
+        width: 100%;
+    }
+
+    .skills-certifications-part {
+        margin-bottom: 20px;
+        height: auto;
+    }
+
+    .skills-certifications-headline {
+        font-size: 16px;
+    }
+
+    .list li {
+        font-size: 15px;
+    }
+
+    .work-headline {
+        font-size: 18px;
+    }
+
+    .work-flex {
+        display: block;
+    }
+
+    .work-img-part, .work-explanation-part {
+        width: 100%;
+    }
+
+    .work-explanation-part {
+        margin-top: 30px;
+        font-size: 15px;
+    }
+
+    .work-img {
+        width: 60%;
+    }
+}

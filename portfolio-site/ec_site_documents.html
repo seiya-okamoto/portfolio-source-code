@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="Utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seiya Okamoto's Portfolio</title>
+        <style>
+            /* Noto Sans JP (japanese) フォントのインポート */
+            @import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+
+            body {
+                /* 余白の初期値解除 */
+                margin: 0;
+                padding: 0;
+
+                /* 総称フォントも第二優先で指定 */
+                font-family: "Noto Sans JP", sans-serif;
+                letter-spacing: 0.05em;
+            }
+
+            .container {
+                max-width: 1024px;
+                width: 90%;
+                margin: 30px auto;
+            }
+
+            .document {
+                margin-top: 90px;
+            }
+
+            h3 {
+                border-bottom: 2px solid #B7B7B7;
+                margin-top: 0px;
+                margin-bottom: 30px;
+                text-align: center;
+                padding-bottom: 10px;
+                font-size: 24px;
+            }
+
+            .img-part {
+                overflow-x:auto;
+            }
+
+            .img-part-margin {
+                margin-top: 25px;
+            }
+
+            .user-admin-screen {
+                text-align: center;
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .img-width-set {
+                display: block;
+                margin: 0 auto;
+                width: 900px;
+            }
+
+            .frame-border {
+                border: 1px solid black;
+            }
+
+            .img-part-table-definition {
+                overflow-x: auto;
+                margin-top: 25px;
+            }
+            
+            .img-width-no-set {
+                display: block;
+            }
+
+            .table-name {
+                font-weight: bold;
+                margin-bottom: 3px;
+            }
+
+            .er-coding-conventions-img {
+                display: block;
+                width: 600px;
+                height: auto;
+                margin: 0 auto;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="document">
+                <h3>ページ一覧</h3>
+                <div class="img-part">
+                    <img src="ec_site_documents_images/page-list.png" class="img-width-set" alt="ページ一覧" />
+                </div>
+            </div>
+            <div class="document">
+                <h3>画面遷移図</h3>
+                <div class="img-part">
+                    <div class="user-admin-screen">ユーザー画面</div>
+                    <img src="ec_site_documents_images/screen-transition-diagram-user.png" class="img-width-set frame-border" alt="画面遷移図_ユーザー画面" />
+                </div>
+                <div class="img-part img-part-margin">
+                    <div class="user-admin-screen">管理者画面</div>
+                    <img src="ec_site_documents_images/screen-transition-diagram-admin.png" class="img-width-set frame-border" alt="画面遷移図_管理者画面" />
+                </div>
+            </div>
+            <div class="document">
+                <h3>テーブル定義書</h3>
+                <div class="img-part-table-definition">
+                    <div class="table-name">userテーブル（ユーザー情報の管理）</div>
+                    <img src="ec_site_documents_images/table-definition-users.png" class="img-width-no-set frame-border" alt="テーブル定義書_ユーザー情報" />
+                </div>
+                <div class="img-part-table-definition">
+                    <div class="table-name">productテーブル（商品情報の管理）</div>
+                    <img src="ec_site_documents_images/table-definition-products.png" class="img-width-no-set frame-border" alt="テーブル定義書_商品情報" />
+                </div>
+                <div class="img-part-table-definition">
+                    <div class="table-name">cartテーブル（ショッピングカート情報の管理）</div>
+                    <img src="ec_site_documents_images/table-definition-cart.png" class="img-width-no-set frame-border" alt="テーブル定義書_ショッピングカート情報" />
+                </div>
+            </div>
+            <div class="document">
+                <h3>ER図</h3>
+                <div class="img-part">
+                    <img src="ec_site_documents_images/ER-diagram.png" class="er-coding-conventions-img frame-border" alt="ER図" />
+                </div>
+            </div>
+            <div class="document">
+                <h3>コーディング規約</h3>
+                <div class="img-part">
+                    <img src="ec_site_documents_images/coding-conventions.png" class="er-coding-conventions-img frame-border" alt="コーディング規約" />
+                </div>
+            </div>           
+        </div>
+    </body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="Utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Seiya Okamoto's Portfolio</title>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>            
+            <div class="header-left">
+                <h1>
+                    <a href="https://portfolio02.dc-itex.com/nagoyamarunouchi/0004/portfolio-site/index.html">
+                        <span class="logo-orange">S</span><span class="logo-white">eiya Okamoto's Portfolio</span>
+                    </a>
+                </h1>
+            </div>
+            <div class="header-right">
+                <ul>
+                    <li><a href="#inpage-link-self-introduction">自己紹介</a></li>
+                    <li><a href="#inpage-link-works">制作物</a></li>
+                </ul>
+            </div>
+            <div class="hamburger">
+                <span class="hamburger-line first-line"></span>
+                <span class="hamburger-line second-line"></span>
+                <span class="hamburger-line third-line"></span>
+                <span class="menu">MENU</span>
+            </div>
+            <ul class="slide-menu">
+                <li><a href="#inpage-link-home" class="slide-menu-link">HOME</a></li>
+                <li><a href="#inpage-link-self-introduction" class="slide-menu-link">自己紹介</a></li>
+                <li><a href="#inpage-link-works" class="slide-menu-link">制作物</a></li>
+            </ul>           
+        </header>
+        <script>
+            // 「ハンバーガーメニュー」を押すと「active」というクラスを「hamburger」と「slide-menu」に追加または削除
+            // 「active」クラスの有り無しでハンバーガーメニューの表示を切り替える
+            $(function(){
+                $('.hamburger').click(function(){
+                    $('.hamburger, .slide-menu').toggleClass('active');
+                });
+            });
+            // 「スライドメニュー内のリンク」を押すと「active」というクラスを「hamburger」と「slide-menu」に追加または削除
+            // 「active」クラスの有り無しでハンバーガーメニューの表示を切り替える
+            $(function(){
+                $('.slide-menu-link').click(function(){
+                    $('.hamburger, .slide-menu').toggleClass('active');
+                });
+            });
+        </script>
+        <div class="main-visual" id="inpage-link-home"></div>
+        <div class="self-introduction"  id="inpage-link-self-introduction">
+            <div class="container">
+                <h2>自己紹介</h2>
+                <div class="flex-photo-sentence">                    
+                    <div class="face-photo"></div>
+                    <div class="self-introduction-sentence-part">
+                        <div class="self-introduction-sentence">                        
+                            <div>ご覧いただき、ありがとうございます。</div>
+                            <div><span class="name-bold">岡本聖也</span>と申します。</div>
+                            <p>
+                                <div>私は、XX年間、機械設計エンジニアとして航空機の設計開発をしておりました。</div>
+                                <div>その業務にて、CAD上で動くVBを用いたマクロを作成したことがきっかけで、プログラミングに興味を持ちました。
+                                    そして、プログラミング学習を行うにつれて、システムを制作することに大変面白さを感じ、
+                                    IT業界は未経験ながらも転職を決意しました。</div>
+                            </p>
+                            <div>ものづくり技術者として、チームで設計開発をしてきた経験を活かしつつ、
+                                IT技術を貪欲に吸収していきたいと思っております。</div>                                                               
+                        </div>
+                    </div>
+                </div>           
+                <div class="flex-skills-certifications">
+                    <div class="skills-certifications-flex-part">
+                        <div class="skills-certifications-part">                            
+                            <h3 class="skills-certifications-headline">スキル</h3>
+                            <ul class="list">
+                                <li>HTML/CSS</li>
+                                <li>JavaScript/jQuery</li>
+                                <li>PHP/MySQL</li>
+                                <li>WordPress</li>
+                                <li>Java（現在、学習中）</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="skills-certifications-flex-part">
+                        <div class="skills-certifications-part">
+                            <h3 class="skills-certifications-headline">保有資格</h3>
+                            <ul class="list">
+                                <li>ITパスポート</li>
+                                <li>基本情報技術者</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="works" id="inpage-link-works">
+            <div class="container">
+                <div class="works-headline">
+                    <h2>制作物</h2>            
+                </div>
+                <div class="work">
+                    <h3 class="work-headline">ピアノアプリ</h3>
+                    <div class="work-flex">
+                        <div class="work-img-part">
+                            <div class="work-img">
+                                <a href="https://portfolio02.dc-itex.com/nagoyamarunouchi/0004/js/index.html" target="_blank">
+                                <img src="images/piano_app.png" alt="ピアノアプリ" /></a>
+                            </div>
+                        </div>
+                        <div class="work-explanation-part">                                        
+                            <dt>◆使用技術</dt>
+                                <dd>JavaScript/jQuery</dd>
+                            <dt>◆概要説明</dt>
+                                <dd>鍵盤をクリックすると、ピアノ音が鳴るWebアプリです。
+                                    自動演奏ボタンをクリックすると、曲が自動で演奏されます。</dd>                            
+                            <dt>◆こだわりポイント</dt>
+                                <dd>鳴っている音の鍵盤がピンク色に変わるため、どの音が鳴っているのか分かりやすい点。</dd>
+                            <dt>◆得たスキル・経験</dt>
+                                <dd>JavaScriptの基本的なコーディングスキル/
+                                    ライブラリの使用経験/
+                                    可読性・メンテナンス性の高いソースコードを書く能力</dd>                                       
+                        </div>
+                    </div>                  
+                </div>
+                <div class="work">
+                    <h3 class="work-headline">ECサイト</h3>
+                    <div class="work-flex">
+                        <div class="work-img-part">
+                            <div class="work-img">
+                                <a href="https://portfolio02.dc-itex.com/nagoyamarunouchi/0004/ec_site/index.php" target="_blank">
+                                <img src="images/ec_site.png" alt="ECサイト" /></a>
+                            </div>
+                        </div>
+                        <div class="work-explanation-part">                                        
+                            <dt>◆使用技術</dt>
+                                <dd>PHP/MySQL</dd>
+                            <dt>◆概要説明</dt>
+                                <dd>商品管理ができる管理者ページ、商品を購入までできるユーザーページを持つECサイトです。
+                                    管理者ページには、管理者用ID（ID:ec_admin, パスワード:ec_admin）でログインして下さい。</dd>
+                            <dt>◆実装した機能</dt> 
+                                <dd>ユーザー登録、ログイン機能/商品管理機能（販売商品の登録、削除、在庫数の変更等）/
+                                    商品購入機能（購入商品の選択、削除、購入数の変更等）</dd>                                                        
+                            <dt>◆こだわりポイント</dt>
+                                <dd>セキュリティ対策（XSS,SQLインジェクション対策）を施した点。</dd>
+                            <dt>◆得たスキル・経験</dt>
+                                <dd>PHPの基本的なコーディングスキル/DBでのCRUD操作経験/MVCモデルでの実装/
+                                    CookieやSession、バリデーションの実装/システム設計・DB設計経験</dd>
+                            <dt>◆システム設計・DB設計にて作成した書類</dt>
+                                <dd>ページ一覧、画面遷移図、テーブル定義書、ER図、コーディング規約</dd>
+                                <dd><a href="https://portfolio02.dc-itex.com/nagoyamarunouchi/0004/portfolio-site/ec_site_documents.html"  class="link-underline" target="_blank">→詳細はこちらをクリックしてご覧下さい</a></dd>                                 
+                        </div>
+                    </div>                                      
+                </div>
+                <div class="work">
+                    <h3 class="work-headline">WordPress自作テーマを使用したコーポレートサイト</h3>
+                    <div class="work-flex">
+                        <div class="work-img-part">
+                            <div class="work-img">
+                                <a href="https://portfolio02.dc-itex.com/nagoyamarunouchi/0004/wp/" target="_blank">
+                                <img src="images/WordPress.png" alt="WordPress" /></a>
+                            </div>
+                        </div>
+                        <div class="work-explanation-part">                                        
+                            <dt>◆使用技術</dt>
+                                <dd>WordPress/PHP</dd>
+                            <dt>◆概要説明</dt>
+                                <dd>WordPressのオリジナルテーマを作成し、それを利用した架空のコーポレートサイトです。</dd>                            
+                            <dt>◆こだわりポイント</dt>
+                                <dd>カスタムフィールドを使用したことで、プログラミングの知識がない人でも、サイトを更新するのを容易にした点。</dd>
+                            <dt>◆得たスキル・経験</dt>
+                                <dd>WordPressの基本操作/プラグインの使用/
+                                    WordPressの環境構築、オリジナルテーマ作成経験</dd>                            
+                        </div>
+                    </div>                                      
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="container">
+                <p class="footer-logo">Copyright © 2023 Seiya Okamoto</p>
+            </div>
+        </footer>
+    </body>
+</html>

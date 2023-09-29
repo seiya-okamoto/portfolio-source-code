@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ピアノアプリ</title>
+    <!-- CDNでTone.jsとjQueryを利用 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1024px;
+            width: 90%;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        .song-title {
+            visibility: hidden;
+            text-align: center;
+            border: 3px solid red;
+            color: red;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .flexbox-upper-part {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        input {
+            height: 50px;
+            width: 100px;   
+            background-color: black;
+            color: white;
+            border-radius: 12px;
+            font-size: 15px;
+        }
+
+        #pitch-name-button {
+            cursor: pointer;
+        }
+
+        .pitch-name-display-area {
+            width: 200px;
+            height: 80px;            
+            margin: 0 20px;
+            background-color: #e22467;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .display-pitch-name {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #auto-play-button {
+            cursor: pointer;
+        }
+
+        #stop-button {
+            display: none;
+            cursor: pointer;
+        }
+
+        .piano {
+            position: relative;
+            width: 444px;
+            margin: 0 auto;
+        }
+
+        .flexbox-white-key {
+            display: flex;
+            justify-content: center;          
+        }
+
+        .white-key {
+            border: 3px solid #afafb0;
+            background-color: white;
+            width: 60px;
+            height: 200px;
+            margin-right: -3px; /* 隣り合う枠線が並んで太さが倍にならないように、枠線の太さ分ずらす */
+            position: relative;
+        }
+
+        .pitch-name {
+            position: absolute;
+            bottom: 3%;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .flexbox-black-key {
+            display: flex;
+            position: absolute;
+            left: 40px;
+            top: 0;           
+        }
+
+        .black-key {
+            background-color: black;
+            width: 58px;
+            height: 120px;
+            position: relative;
+            margin-right: 6px;    
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .hidden-key {
+            visibility: hidden;
+        }
+
+        @media all and (max-width: 428px) {
+            input {
+                font-size: 13px;
+            }
+
+            .piano {
+                width: 337px;
+            }
+
+            .black-key {
+                width: 46px;
+            }
+
+            .flexbox-black-key {
+                left: 21px;
+            
+            }
+
+            .pitch-name {
+                font-size: 13px;
+            }
+
+        }
+    </style>   
+</head>
+<body>
+    <div class="container">
+        <!-- 曲名表示エリア -->
+        <div class="song-title">自動演奏中です：</div>
+
+        <!-- 上部 -->
+        <div class="flexbox-upper-part">
+            <!-- 音名表示/非表示ボタン -->
+            <input type="button" id="pitch-name-button" value="音名非表示">
+
+            <!-- 音名表示エリア -->
+            <div class="pitch-name-display-area">
+                <div class="display-pitch-name"></div>
+            </div>
+
+            <!-- 自動演奏/演奏中止ボタン -->
+            <input type="button" id="auto-play-button" value="自動演奏">
+            <input type="button" id="stop-button" value="演奏中止">
+        </div>
+
+        <!-- 鍵盤 -->
+        <div class="piano">
+            <div class="flexbox-white-key">
+                <div id="C4" class="white-key key">
+                    <div class="pitch-name">ド</div>
+                </div>
+                <div id="D4" class="white-key key">
+                    <div class="pitch-name">レ</div>
+                </div>
+                <div id="E4" class="white-key key">
+                    <div class="pitch-name">ミ</div>
+                </div>
+                <div id="F4" class="white-key key">
+                    <div class="pitch-name">ファ</div>
+                </div>
+                <div id="G4" class="white-key key">
+                    <div class="pitch-name">ソ</div>
+                </div>
+                <div id="A4" class="white-key key">
+                    <div class="pitch-name">ラ</div>
+                </div>
+                <div id="B4" class="white-key key">
+                    <div class="pitch-name">シ</div>
+                </div>
+            </div>
+            <div class="flexbox-black-key">
+                <div id="C#4" class="black-key key">
+                    <div class="pitch-name text-white">ド#</div>
+                </div>
+                <div id="D#4" class="black-key key">
+                    <div class="pitch-name text-white">レ#</div>
+                </div>
+                <div class="black-key hidden-key"></div>
+                <div id="F#4" class="black-key key">
+                    <div class="pitch-name text-white">ファ#</div>
+                </div>
+                <div id="G#4" class="black-key key">
+                    <div class="pitch-name text-white">ソ#</div>
+                </div>
+                <div id="A#4" class="black-key key">
+                    <div class="pitch-name text-white">ラ#</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //==========================================手動演奏部分==========================================
+
+        Tone.Transport.bpm.value = 60; // BPM=60なので４分音符の長さは１秒となる
+       
+        // 音源の「Tone.Synth()」を作り、マスター出力に接続
+        const synth = new Tone.Synth().toDestination();
+       
+        function playSound() {
+            let timerDeletePitchName;
+            synth.triggerAttackRelease($(this).attr('id'), "1m"); // $(this)はクリックした鍵盤、attrでidの文字列を取得して発音
+            $(this).css('background-color', '#e22467'); // クリックした鍵盤の色変更
+            let child = $(this).children(); //子要素を取得
+            $('.display-pitch-name').text(child.text()); //音名を音名表示エリアに表示
+
+            // 押されたマウスボタンが離されたときに以下関数を実行
+            $(this).mouseup(function() {
+                synth.triggerAttackRelease(); // 音を止める
+
+                let classVal = $(this).attr('class'); // 押された鍵盤のclassの値を取得
+                let classVals = classVal.split(' '); // 取得した値を分割し、配列データとして格納
+
+                if (classVals[0] === "white-key") {
+                    $(this).css('background-color', 'white'); // 鍵盤の色を白に戻す
+                }else{
+                    $(this).css('background-color', 'black'); // 鍵盤の色を黒に戻す
+                }
+                
+                // 音名表示エリアに表示された音名を1秒間後に消す                
+                timerDeletePitchName = setTimeout(function(){$('.display-pitch-name').empty()}, 1000);
+                // 前の音が鳴り終わってから1秒以内に次の鍵盤が押されたら、音名消す処理をキャンセル
+                $('.key').mousedown(function() {clearTimeout(timerDeletePitchName);});
+            });         
+        }
+            
+        $('.key').mousedown(playSound); // 鍵盤がマウスで押されたときにplaySound関数を呼び出す
+
+        
+        //==========================================要件外機能==========================================
+        
+        //音名の表示・非表示切り替え
+        function pitchNameSwitch() {
+            $('.pitch-name').toggle(); 
+            
+            if ($('#pitch-name-button').val() === "音名非表示") {
+                $('#pitch-name-button').val("音名表示")
+            }else{
+                $('#pitch-name-button').val("音名非表示")
+            }            
+        }
+        
+        $('#pitch-name-button').click(pitchNameSwitch); //音名表示/非表示ボタンをクリックする毎に音名の表示・非表示が切り替わる
+
+
+        //==========================================自動演奏部分==========================================
+
+        // 楽譜（きらきら星）
+        // timeは発音のタイミング（小節:拍:半拍）,noteは音程,durationは音符(音の長さ)指定
+        // nullは休符
+        const scoreTwinkleStar = [
+            {'time': '0:0:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '0:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '0:1:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '0:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '0:2:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '0:2.5:0', "note": null, 'duration': '8n'},
+            {'time': '0:3:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '0:3.5:0', "note": null, 'duration': '8n'},
+            {'time': '1:0:0', 'note': 'A4', 'duration': '8n'},
+            {'time': '1:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '1:1:0', 'note': 'A4', 'duration': '8n'},
+            {'time': '1:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '1:2:0', "note": 'G4', 'duration': '2n'},
+            {'time': '2:0:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '2:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '2:1:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '2:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '2:2:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '2:2.5:0', "note": null, 'duration': '8n'},
+            {'time': '2:3:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '2:3.5:0', "note": null, 'duration': '8n'},
+            {'time': '3:0:0', 'note': 'D4', 'duration': '8n'},
+            {'time': '3:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '3:1:0', 'note': 'D4', 'duration': '8n'},
+            {'time': '3:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '3:2:0', "note": 'C4', 'duration': '2n'},
+            {'time': '4:0:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '4:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '4:1:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '4:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '4:2:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '4:2.5:0', "note": null, 'duration': '8n'},
+            {'time': '4:3:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '4:3.5:0', "note": null, 'duration': '8n'},
+            {'time': '5:0:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '5:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '5:1:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '5:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '5:2:0', "note": 'D4', 'duration': '2n'},
+            {'time': '6:0:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '6:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '6:1:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '6:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '6:2:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '6:2.5:0', "note": null, 'duration': '8n'},
+            {'time': '6:3:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '6:3.5:0', "note": null, 'duration': '8n'},
+            {'time': '7:0:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '7:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '7:1:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '7:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '7:2:0', "note": 'D4', 'duration': '2n'},
+            {'time': '8:0:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '8:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '8:1:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '8:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '8:2:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '8:2.5:0', "note": null, 'duration': '8n'},
+            {'time': '8:3:0', 'note': 'G4', 'duration': '8n'},
+            {'time': '8:3.5:0', "note": null, 'duration': '8n'},
+            {'time': '9:0:0', 'note': 'A4', 'duration': '8n'},
+            {'time': '9:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '9:1:0', 'note': 'A4', 'duration': '8n'},
+            {'time': '9:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '9:2:0', "note": 'G4', 'duration': '2n'},
+            {'time': '10:0:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '10:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '10:1:0', 'note': 'F4', 'duration': '8n'},
+            {'time': '10:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '10:2:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '10:2.5:0', "note": null, 'duration': '8n'},
+            {'time': '10:3:0', 'note': 'E4', 'duration': '8n'},
+            {'time': '10:3.5:0', "note": null, 'duration': '8n'},
+            {'time': '11:0:0', 'note': 'D4', 'duration': '8n'},
+            {'time': '11:0.5:0', "note": null, 'duration': '8n'},
+            {'time': '11:1:0', 'note': 'D4', 'duration': '8n'},
+            {'time': '11:1.5:0', "note": null, 'duration': '8n'},
+            {'time': '11:2:0', "note": 'C4', 'duration': '1m'}           
+        ];
+
+        // 音名（きらきら星）2音目以降を格納
+        const pitchNameTwinkleStar = [
+            "", "ド", "", "ソ", "", "ソ", "", "ラ", "", "ラ", "", "ソ", "ソ", "ソ", "ソ",
+            "ファ", "", "ファ", "", "ミ", "", "ミ", "", "レ", "", "レ", "", "ド", "ド", "ド", "ド",
+            "ソ", "", "ソ", "", "ファ", "", "ファ", "", "ミ", "", "ミ", "", "レ", "レ", "レ", "レ",
+            "ソ", "", "ソ", "", "ファ", "", "ファ", "", "ミ", "", "ミ", "", "レ", "レ", "レ", "レ",
+            "ド", "", "ド", "", "ソ", "", "ソ", "", "ラ", "", "ラ", "", "ソ", "ソ", "ソ", "ソ",
+            "ファ", "", "ファ", "", "ミ", "", "ミ", "", "レ", "", "レ", "", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド"
+        ];
+
+        // 楽譜（チューリップ）
+        const scoreTulip = [  
+            {'time': '0:0:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '0:0.5:0', "note": 'D4', 'duration': '8n'},
+            {'time': '0:1:0', 'note': 'E4', 'duration': '4n'},
+            {'time': '0:2:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '0:2.5:0', "note": 'D4', 'duration': '8n'},
+            {'time': '0:3:0', 'note': 'E4', 'duration': '4n'},
+            {'time': '1:0:0', "note": 'G4', 'duration': '8n'},
+            {'time': '1:0.5:0', "note": 'E4', 'duration': '8n'},
+            {'time': '1:1:0', "note": 'D4', 'duration': '8n'},
+            {'time': '1:1.5:0', "note": 'C4', 'duration': '8n'},
+            {'time': '1:2:0', "note": 'D4', 'duration': '8n'},
+            {'time': '1:2.5:0', "note": 'E4', 'duration': '8n'},
+            {'time': '1:3:0', "note": 'D4', 'duration': '4n'},
+            {'time': '2:0:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '2:0.5:0', "note": 'D4', 'duration': '8n'},
+            {'time': '2:1:0', 'note': 'E4', 'duration': '4n'},
+            {'time': '2:2:0', 'note': 'C4', 'duration': '8n'},
+            {'time': '2:2.5:0', "note": 'D4', 'duration': '8n'},
+            {'time': '2:3:0', 'note': 'E4', 'duration': '4n'},
+            {'time': '3:0:0', "note": 'G4', 'duration': '8n'},
+            {'time': '3:0.5:0', "note": 'E4', 'duration': '8n'},
+            {'time': '3:1:0', "note": 'D4', 'duration': '8n'},
+            {'time': '3:1.5:0', "note": 'C4', 'duration': '8n'},
+            {'time': '3:2:0', "note": 'D4', 'duration': '8n'},
+            {'time': '3:2.5:0', "note": 'E4', 'duration': '8n'},
+            {'time': '3:3:0', "note": 'C4', 'duration': '4n'},
+            {'time': '4:0:0', "note": 'G4', 'duration': '16n'},
+            {'time': '4:0.25:0', "note": null, 'duration': '16n'},
+            {'time': '4:0.5:0', "note": 'G4', 'duration': '16n'},
+            {'time': '4:0.75:0', "note": null, 'duration': '16n'},
+            {'time': '4:1:0', "note": 'E4', 'duration': '16n'},
+            {'time': '4:1.25:0', "note": null, 'duration': '16n'},
+            {'time': '4:1.5:0', "note": 'G4', 'duration': '16n'},
+            {'time': '4:1.75:0', "note": null, 'duration': '16n'},
+            {'time': '4:2:0', "note": 'A4', 'duration': '16n'},
+            {'time': '4:2.25:0', "note": null, 'duration': '16n'},
+            {'time': '4:2.5:0', "note": 'A4', 'duration': '16n'},
+            {'time': '4:2.75:0', "note": null, 'duration': '16n'},
+            {'time': '4:3:0', "note": 'G4', 'duration': '4n'},
+            {'time': '5:0:0', "note": 'E4', 'duration': '16n'},
+            {'time': '5:0.25:0', "note": null, 'duration': '16n'},
+            {'time': '5:0.5:0', "note": 'E4', 'duration': '16n'},
+            {'time': '5:0.75:0', "note": null, 'duration': '16n'},
+            {'time': '5:1:0', "note": 'D4', 'duration': '16n'},
+            {'time': '5:1.25:0', "note": null, 'duration': '16n'},
+            {'time': '5:1.5:0', "note": 'D4', 'duration': '16n'},
+            {'time': '5:1.75:0', "note": null, 'duration': '16n'},
+            {'time': '5:2:0', "note": 'C4', 'duration': '1m'}
+        ];
+
+        // 音名（チューリップ）
+        const pitchNameTulip = [
+            "ド", "ド", "レ", "レ", "ミ", "ミ", "ミ", "ミ", "ド", "ド", "レ", "レ", "ミ", "ミ", "ミ", "ミ",
+            "ソ", "ソ", "ミ", "ミ", "レ", "レ", "ド", "ド", "レ", "レ", "ミ", "ミ", "レ", "レ", "レ", "レ",
+            "ド", "ド", "レ", "レ", "ミ", "ミ", "ミ", "ミ", "ド", "ド", "レ", "レ", "ミ", "ミ", "ミ", "ミ",
+            "ソ", "ソ", "ミ", "ミ", "レ", "レ", "ド", "ド", "レ", "レ", "ミ", "ミ", "ド", "ド", "ド", "ド",
+            "ソ", "", "ソ", "", "ミ", "", "ソ", "", "ラ", "", "ラ", "", "ソ", "ソ", "ソ", "ソ",
+            "ミ", "", "ミ", "", "レ", "", "レ", "",
+            "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド", "ド"
+        ];
+
+        
+        // 再生設定
+        function addMelody(time, note) {
+            synth.triggerAttackRelease(note.note, note.duration, time);
+        }
+
+        // テンポを指定
+        Tone.Transport.bpm.value = 60;
+
+        // ランダムに曲を選んで再生実行
+        function playMusic() {
+            // 自動演奏ボタンを非表示
+            $('#auto-play-button').css('display', 'none');
+            // 演奏中止ボタンを表示
+            $('#stop-button').css('display', 'block');
+            
+            $('.key').off("mousedown"); // 自動演奏中は手動演奏の機能を無効にする
+
+            //　ランダムに曲を選んで情報を格納
+            let randomNum = Math.floor( Math.random() * 2);
+            let melodyData;
+            let songTitle;
+            if (randomNum === 0) {
+                melodyData = scoreTwinkleStar;
+                songTitle = "きらきら星";
+            }else{
+                melodyData = scoreTulip;
+                songTitle = "チューリップ";
+            }
+            
+            // メロディをセット
+            let melody = new Tone.Part(addMelody, melodyData).start();
+
+            // 再生実行
+            Tone.Transport.start();
+
+            // 曲名表示
+            $('.song-title').append(songTitle);
+            $('.song-title').css('visibility','visible');
+
+            // ---以下、自動音名表示---
+            let firstSound;
+            let pitchNameData;
+            let timeInterval;
+
+            // ランダムに選ばれた曲のデータを変数に格納
+            if (randomNum === 0) {
+                firstSound = "ド";
+                pitchNameData = pitchNameTwinkleStar;
+                timeInterval = 500; //きらきら星はsetIntervalの間隔0.5秒ごと
+            } else {
+                firstSound = "ド";
+                pitchNameData = pitchNameTulip;
+                timeInterval = 250; //チューリップはsetIntervalの間隔0.25秒ごと
+            }
+
+            // 最初の1音を表示
+            $('.display-pitch-name').text(firstSound);
+
+            // 最初の1音の鍵盤に色つける
+            var classPitchNames = document.querySelectorAll('.pitch-name'); // pitch-nameクラスを配列として返す
+            // 最初の1音と同じ文字列を持つ要素を配列として格納
+            var classPitchName = Array.from(classPitchNames).filter( function(element) {
+                return element.textContent === firstSound; 
+            });
+            // 1つ上の要素（white-keyクラス）の背景色の色を変える（鍵盤の色変更）
+            for(el of classPitchName) {
+                var autoPlayKey = el.parentElement;
+                autoPlayKey.style.backgroundColor = '#e22467';
+            }
+            
+
+            // 自動演奏ボタンをクリックして 0.5 or 0.25 秒後に2音目以降の音名表示と鍵盤の色変更
+            let i = 0;
+            let timerAutoPart = setInterval(function(){
+                
+                // 演奏中止ボタンがクリックされたら、setInterval解除（音名表示と鍵盤の色変更の中止）
+                $('#stop-button').click(function() {
+                    clearInterval(timerAutoPart);
+                });                                                
+
+                $('.display-pitch-name').text(pitchNameData[i]); //2音目以降の音名表示
+
+                $('.white-key').css('background-color', 'white'); //白鍵を白色に変更
+
+                // 2音目以降の鍵盤の色変更
+                var classPitchName = Array.from(classPitchNames).filter( function(element) {
+                    return element.textContent === pitchNameData[i]; 
+                });
+
+                for(el of classPitchName) {
+                    var autoPlayKey = el.parentElement;
+                    autoPlayKey.style.backgroundColor = '#e22467';
+                }
+
+                // 次の音名を指定
+                i++;
+
+                // 1曲自動演奏が終わったときの処理（終わった曲が終わる0.5秒 or 0.25秒前に発動）
+                if (i === pitchNameData.length ) {
+                    // setIntervalの解除
+                    clearInterval(timerAutoPart);
+
+                    // 曲の最後の音が鳴り終わると同時に行う処理
+                    let songEndProcessing;
+                    songEndProcessing = setTimeout(songEndStopMusicCommon(),  timeInterval);                   
+                }            
+            }, timeInterval);
+        }
+       
+        // 自動演奏ボタンをクリックしたら自動演奏開始
+        $('#auto-play-button').click(playMusic);
+
+        //1曲自動演奏が終わったとき、演奏中止のときの共通処理
+        function songEndStopMusicCommon() {
+            $('.song-title').css('visibility','hidden'); //曲名非表示           
+            $('.song-title').text("自動演奏中です："); // "自動演奏中です："の文字列で上書きして曲名削除
+            $('.display-pitch-name').empty(); //音名を消す
+            $('.white-key').css('background-color', 'white'); //鍵盤の色を白色に戻す                      
+            $('#stop-button').css('display', 'none');  // 演奏中止ボタンを非表示
+            $('#auto-play-button').css('display', 'block'); // 自動演奏ボタンを表示
+            Tone.Transport.cancel();// 楽譜データをクリアにする
+            $('.key').mousedown(playSound); // 手動演奏の再登録                                
+        }
+
+        // 演奏中止
+        function stopMusic() {                       
+            Tone.Transport.stop(); // 音のストップ
+            songEndStopMusicCommon();           
+        }
+
+        // 演奏中止ボタンをクリックしたら演奏中止       
+        $('#stop-button').click(stopMusic);
+
+    </script>   
+</body>
+</html>
