@@ -226,6 +226,10 @@ dd {
     text-decoration: underline;
 }
 
+.github {
+    text-align: center;
+}
+
 footer {
     height: 120px;
     width: 100%;
